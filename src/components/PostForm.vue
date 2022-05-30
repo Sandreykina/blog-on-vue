@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div>
     <form @submit.prevent>
       <h4>Создание поста</h4>
       <input
@@ -60,9 +60,6 @@ form {
   background: none;
   color: teal;
   border: 2px solid teal;
-}
-.app {
-  padding: 20px;
 }
 
 .input {
