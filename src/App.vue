@@ -1,38 +1,30 @@
 <template>
   <div class="app">
-    <post-form />
-    <post-list v-bind:posts="posts"/>
+    <post-form @add="addPost" />
+    <post-list v-bind:posts="posts" />
   </div>
 </template>
 
 <script>
-import PostForm from './components/PostForm.vue';
-import PostList from './components/PostList.vue';
+import PostForm from "./components/PostForm.vue";
+import PostList from "./components/PostList.vue";
 
 export default {
-    components: {
-        PostForm, PostList
-    },
+  components: {
+    PostForm,
+    PostList,
+  },
   data() {
     return {
       posts: [
         { id: 0, title: "Title 1", body: "Описание поста 1" },
         { id: 1, title: "Title 2", body: "Описание поста 2" },
       ],
-      title: '',
-      body: '',
     };
   },
   methods: {
-    addPost() {
-        const newPost = {
-            id: Date.now(),
-            title: this.title,
-            body: this.body
-        }
-        this.posts.push(newPost);
-        this.title = '';
-        this.body = '';
+    addPost(post) {
+      this.posts.push(post);
     },
   },
 };
