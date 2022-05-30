@@ -2,16 +2,22 @@
   <div class="post">
     <div><strong>Название:</strong>{{ post.title }}</div>
     <div><strong>Описание:</strong>{{ post.body }}</div>
+    <my-button
+      @click="deletePost">Удалить</my-button>
   </div>
 </template>
 
 <script>
+
 export default {
   props: {
     post: {
       type: Object,
-      required: true
+      required: true,
     },
+  },
+  methods: {
+    deletePost() {},
   },
 };
 </script>
