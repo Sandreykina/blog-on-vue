@@ -10,7 +10,9 @@
         v-model = "post.body"
         placeholder="Описание"
       />
-      <my-button @click="addPost">Добавить</my-button>
+      <my-button @click="addPost">
+        Добавить
+      </my-button>
     </form>
   </div>
 </template>

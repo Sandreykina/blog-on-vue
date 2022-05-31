@@ -1,6 +1,16 @@
 <template>
-Список пользователей
-    <post-item v-for="post in posts" :post="post" v-bind:key="post.id"/>
+<div v-if="posts.length > 0">
+  <h2>Список постов</h2>
+    <post-item 
+      v-for="post in posts" 
+      :post="post" 
+      v-bind:key="post.id"
+      @remove = "$emit('remove', post)"
+    />
+</div>
+  <h2 v-else>
+    Список постов пуст
+  </h2>
 </template>
 
 <script>

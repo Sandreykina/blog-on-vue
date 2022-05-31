@@ -3,7 +3,7 @@
     <div><strong>Название:</strong>{{ post.title }}</div>
     <div><strong>Описание:</strong>{{ post.body }}</div>
     <my-button
-      @click="deletePost">Удалить</my-button>
+      @click="$emit('remove', post)">Удалить</my-button>
   </div>
 </template>
 
@@ -17,7 +17,6 @@ export default {
     },
   },
   methods: {
-    deletePost() {},
   },
 };
 </script>
