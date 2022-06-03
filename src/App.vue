@@ -49,6 +49,7 @@ export default {
           this.posts = response.data;
           console.log(this.posts)
           console.log(response)
+          
           })
         .catch((error) => console.log(error));
     }
