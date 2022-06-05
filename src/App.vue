@@ -1,13 +1,15 @@
 <template>
   <div class="app">
     <h1>Основная страница</h1>
-    <my-button @click="showPopup"> Добавить пост </my-button>
-    <!-- <my-button @click = "fetchPosts">Получить посты с апи</my-button> -->
+    <div class = "app__btns">
+      <my-button @click="showPopup"> Добавить пост </my-button>
+      <my-select v-model="selectedSort" :options="sortOptions" />
+    </div>
     <my-popup v-model:show="popupVisible">
       <post-form @add="addPost" />
     </my-popup>
     <post-list
-      v-bind:posts="posts"
+      :posts="posts"
       @remove="removePost"
       v-if="!isPostLoading"
     />
@@ -20,8 +22,8 @@ import PostForm from "./components/PostForm.vue";
 import PostList from "./components/PostList.vue";
 import MyPopup from "./components/UI/MyPopup.vue";
 import MyButton from "./components/UI/MyButton.vue";
-// import getApi from "./axios-api";
-import axios from "axios";
+import MySelect from "./components/UI/MySelect.vue";
+import axios from 'axios';
 
 export default {
   components: {
@@ -29,18 +31,45 @@ export default {
     PostList,
     MyPopup,
     MyButton,
-  },
+    MySelect
+},
   data() {
     return {
       popupVisible: false,
       posts: [],
       isPostLoading: false,
+      selectedSort: '',
+      sortOptions: [
+        {value: 'title', name: 'По названию'},
+        {value: 'text', name: 'По описанию'}
+      ]
     };
   },
   methods: {
+    refreshPostData(){
+      this.isPostLoading = true;
+      axios.get('http://127.0.0.1:8000')
+        .then((response) => {
+          this.posts = response.data;
+          return response;
+        })
+        .catch((error) => console.log(error))
+        .finally((this.isPostLoading = false));
+      console.log(this.selectedSort);
+    },
     addPost(post) {
-      this.posts.push(post);
+      console.log(post)
+      console.log(this.post)
+      axios.post('http://127.0.0.1:8000', this.post)
+      .then((response) => {
+        response = response.json;
+        this.posts.push(response.data);
+        this.refreshPostData();
+        return response;
+      })
+      .catch((error) => console.log(error));
       this.popupVisible = false;
+      console.log(post)
     },
     removePost(post) {
       this.posts = this.posts.filter((p) => p.id !== post.id);
@@ -49,20 +78,17 @@ export default {
       this.popupVisible = true;
     },
   },
-  mounted: function () {
-    this.isPostLoading = true;
-    axios
-      .get("http://127.0.0.1:8000")
-      .then((response) => {
-        this.posts = response.data;
-        response = response.json;
-        return response;
-      })
-      .catch((error) => console.log(error))
-      .finally((this.isPostLoading = false));
-    console.log(this.posts);
+  mounted() {
+    this.refreshPostData();
   },
-};
+  computed: { //разворачиваем исх массив и сортируем его, чтобы не менять исх
+    // sortedPosts() {
+    //   return [...this.posts].sort((post1, post2) => {
+    //     return post1[this.selectedSort]?.localCompare(post2[this.selectedSort])
+    //   })
+    // }
+  },
+}
 </script>
 
 <style>
@@ -74,5 +100,10 @@ export default {
 }
 .app {
   padding: 20px;
+}
+.app__btns {
+  display: flex;
+  justify-self: space-between;
+  margin: 10px;
 }
 </style>

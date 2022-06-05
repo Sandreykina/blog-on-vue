@@ -3,7 +3,7 @@
     <form @submit.prevent>
       <h4>Создание поста</h4>
       <my-input v-model="post.title" placeholder="Название" />
-      <my-input v-model="post.body" placeholder="Описание" />
+      <my-input v-model="post.text" placeholder="Описание" />
       <my-button @click="addPost"> Добавить </my-button>
     </form>
   </div>
@@ -15,8 +15,11 @@ export default {
   data() {
     return {
       post: {
+        author: null,
         title: "",
-        body: "",
+        text: "",
+        created_date: null,
+        published_date: null,
       },
     };
   },
@@ -25,11 +28,14 @@ export default {
       this.post.id = Date.now();
       this.$emit("add", this.post);
       this.post = {
+        author: null,
         title: "",
-        body: "",
+        text: "",
+        created_date: null,
+        published_date: null,
       };
     },
-  },
+  }
 };
 </script>
 
