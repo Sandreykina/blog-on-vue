@@ -4,7 +4,7 @@
       <h4>Создание поста</h4>
       <my-input v-model="post.title" placeholder="Название" />
       <my-input v-model="post.text" placeholder="Описание" />
-      <my-button @click="addPost"> Добавить </my-button>
+      <my-button @click="addPostForm"> Добавить </my-button>
     </form>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
     };
   },
   methods: {
-    addPost() {
+    addPostForm() {
       this.post.id = Date.now();
       this.$emit("add", this.post);
       this.post = {

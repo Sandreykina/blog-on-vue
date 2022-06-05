@@ -57,23 +57,29 @@ export default {
         .finally((this.isPostLoading = false));
       console.log(this.selectedSort);
     },
+
     addPost(post) {
       console.log(post)
-      console.log(this.post)
-      axios.post('http://127.0.0.1:8000', this.post)
+      axios.post('http://127.0.0.1:8000', {
+        title: post.title,
+        text: post.text,
+        author: 1,
+        created_date: 0,
+        published_date: 0,
+      })
       .then((response) => {
-        response = response.json;
+        console.log("happy")
         this.posts.push(response.data);
         this.refreshPostData();
-        return response;
       })
       .catch((error) => console.log(error));
       this.popupVisible = false;
-      console.log(post)
     },
+
     removePost(post) {
       this.posts = this.posts.filter((p) => p.id !== post.id);
     },
+
     showPopup() {
       this.popupVisible = true;
     },
