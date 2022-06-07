@@ -1,17 +1,17 @@
 <template>
   <div>
     <form @submit.prevent>
-      <h4>Создание поста</h4>
       <my-input v-model="post.title" placeholder="Название" />
       <my-input v-model="post.text" placeholder="Описание" />
       <my-button @click="addPostForm"> Добавить </my-button>
+      <my-button @click="editPostForm"> Отредачить </my-button>
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  name: "PostForm",
+  name: "post-form",
   data() {
     return {
       post: {
@@ -35,17 +35,22 @@ export default {
         published_date: null,
       };
     },
+    editPostForm() {
+        this.$emit("edit", this.post);
+        this.post = {
+        author: null,
+        title: "",
+        text: "",
+        created_date: null,
+        published_date: null,
+      };
+    }
+    
   }
 };
 </script>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  margin-top: 10px;
-}
 form {
   display: flex;
   flex-direction: column;

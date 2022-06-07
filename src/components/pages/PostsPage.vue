@@ -6,7 +6,7 @@
       <my-select v-model="selectedSort" :options="sortOptions" />
     </div>
     <my-popup v-model:show="popupVisible">
-      <post-form @add="addPost" />
+      <post-form @add="addPost">Создание поста</post-form>
     </my-popup>
     <post-list :posts="posts" @remove="removePost" v-if="!isPostLoading">
     </post-list>/>
