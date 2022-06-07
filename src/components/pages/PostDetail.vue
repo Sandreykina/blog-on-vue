@@ -1,19 +1,26 @@
 <template>
   <div>
     <my-button @click="$router.back">Назад</my-button>
+
     <my-button @click="showPopup"> 
-      <my-popup v-model:show="popupVisible">
-        <post-form @edit="editPost"><h2>Изменение поста</h2></post-form>
-      </my-popup>
       Отредактировать пост
     </my-button>
-    <h1>{{post.title}}</h1>
-    <div> {{post.text}} </div>
-    <div> {{post.created_date}} </div>
-    <div> {{post.published_date}} </div>
+    <my-popup v-model:show="popupVisible">
+      <post-form @edit="editPost"><h2>Изменение поста</h2></post-form>
+    </my-popup>
+
+    <my-button @click="removePost">
+      Удалить
+    </my-button>
+    <div>
+      <h1>{{post.title}}</h1>
+      <div> {{post.text}} </div>
+      <div> {{post.created_date}} </div>
+      <div> {{post.published_date}} </div>
+    </div>
   </div>
 </template>
-
+<!-- @click="$emit('remove', post)" -->
 <script>
 import getApi from "@/axios-api";
 
@@ -53,6 +60,16 @@ export default {
         })
         .catch((error) => console.log(error));
       this.popupVisible = false;
+    },
+
+    removePost() {
+      // this.posts = this.posts.filter((p) => p.id !== post.id);
+      getApi
+        .delete(`?id=${this.$route.params.id}`)
+        .then(() => {
+          console.log("successful delete");
+        })
+        .catch((error) => console.log(error));
     },
 
     showPopup() {

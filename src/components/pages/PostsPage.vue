@@ -8,7 +8,7 @@
     <my-popup v-model:show="popupVisible">
       <post-form @add="addPost">Создание поста</post-form>
     </my-popup>
-    <post-list :posts="posts" @remove="removePost" v-if="!isPostLoading">
+    <post-list :posts="posts" v-if="!isPostLoading">
     </post-list>/>
     
     
@@ -51,7 +51,6 @@ export default {
         .get("")
         .then((response) => {
           this.posts = response.data;
-          //return response;
         })
         .catch((error) => console.log(error))
         .finally((this.isPostLoading = false));
@@ -68,16 +67,11 @@ export default {
           published_date: "",
         })
         .then((response) => {
-          console.log("happy");
           this.posts.push(response.data);
           this.refreshPostsData();
         })
         .catch((error) => console.log(error));
       this.popupVisible = false;
-    },
-
-    removePost(post) {
-      this.posts = this.posts.filter((p) => p.id !== post.id);
     },
 
     showPopup() {
@@ -95,4 +89,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>
