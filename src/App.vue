@@ -10,6 +10,13 @@
   }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.app {
+  padding: 20px;
+}
 </style>

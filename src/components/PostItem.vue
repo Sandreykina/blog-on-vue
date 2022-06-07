@@ -1,6 +1,6 @@
 <template>
   <div class="post">
-    <div @click="$router.push(`/post/${post.id}`)">{{ post.title }}</div>
+    <h3 @click="$router.push(`/post/${post.id}`)">{{ post.title }}</h3>
     <div><strong>Описание:</strong>{{ post.text }}</div>
     <my-button
       @click="$emit('remove', post)">Удалить</my-button>
