@@ -2,7 +2,6 @@
   <div>
     <div class="app__btns">
       <my-button @click="$router.back">Назад</my-button>
-{{this.$route.params.id}}
       <my-button @click="showPopup">  Отредактировать пост </my-button>
       <my-popup v-model:show="popupVisible">
         <edit-post-form @edit="editPost"></edit-post-form>
@@ -56,7 +55,7 @@ export default {
           author: 1,
           title: newpost.title,
           text: newpost.text,
-          created_date: "",
+          created_date: this.post.created_date,
           published_date: "",
         })
         .then((response) => {
