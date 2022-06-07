@@ -10,27 +10,19 @@
     </my-popup>
     <post-list :posts="posts" v-if="!isPostLoading">
     </post-list>/>
-    
-    
   </div>
 </template>
 
 <script>
 import PostForm from "@/components/PostForm";
 import PostList from "@/components/PostList";
-import MyPopup from "@/components/UI/MyPopup";
-import MyButton from "@/components/UI/MyButton";
-import MySelect from "@/components/UI/MySelect";
 import getApi from "@/axios-api";
 
 export default {
   components: {
     PostForm,
-    PostList,
-    MyPopup,
-    MyButton,
-    MySelect,
-  },
+    PostList
+},
   data() {
     return {
       popupVisible: false,
@@ -44,7 +36,6 @@ export default {
     };
   },
   methods: {
-
     refreshPostsData() {
       this.isPostLoading = true;
       getApi
@@ -90,4 +81,9 @@ export default {
 </script>
 
 <style>
+.app__btns {
+  margin: 15px 0;
+  display: flex;
+  justify-content: space-between;
+}
 </style>

@@ -5,7 +5,6 @@
       v-for="post in posts" 
       :post="post" 
       :key="post.id"
-      
     />
 </div>
   <h2 v-else>
@@ -15,7 +14,6 @@
 
 <script>
 import PostItem from './PostItem.vue';
-// @remove = "$emit('remove', post)"
 export default {
   components: {
     PostItem

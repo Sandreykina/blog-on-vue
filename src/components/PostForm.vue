@@ -1,10 +1,10 @@
 <template>
   <div>
     <form @submit.prevent>
+      <h2>Добавление поста</h2>
       <my-input v-model="post.title" placeholder="Название" />
       <my-input v-model="post.text" placeholder="Описание" />
       <my-button @click="addPostForm"> Добавить </my-button>
-      <my-button @click="editPostForm"> Отредачить </my-button>
     </form>
   </div>
 </template>
@@ -15,11 +15,11 @@ export default {
   data() {
     return {
       post: {
-        author: null,
+        author: 1,
         title: "",
         text: "",
-        created_date: null,
-        published_date: null,
+        created_date: "",
+        published_date: "",
       },
     };
   },
@@ -27,25 +27,7 @@ export default {
     addPostForm() {
       this.post.id = Date.now();
       this.$emit("add", this.post);
-      this.post = {
-        author: null,
-        title: "",
-        text: "",
-        created_date: null,
-        published_date: null,
-      };
     },
-    editPostForm() {
-        this.$emit("edit", this.post);
-        this.post = {
-        author: null,
-        title: "",
-        text: "",
-        created_date: null,
-        published_date: null,
-      };
-    }
-    
   }
 };
 </script>

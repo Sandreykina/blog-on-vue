@@ -1,17 +1,17 @@
 <template>
   <div>
-    <my-button @click="$router.back">Назад</my-button>
+    <div class="app__btns">
+      <my-button @click="$router.back">Назад</my-button>
+{{this.$route.params.id}}
+      <my-button @click="showPopup">  Отредактировать пост </my-button>
+      <my-popup v-model:show="popupVisible">
+        <edit-post-form @edit="editPost"></edit-post-form>
+      </my-popup>
 
-    <my-button @click="showPopup"> 
-      Отредактировать пост
-    </my-button>
-    <my-popup v-model:show="popupVisible">
-      <post-form @edit="editPost"><h2>Изменение поста</h2></post-form>
-    </my-popup>
-
-    <my-button @click="removePost">
-      Удалить
-    </my-button>
+      <my-button @click="removePost">
+        Удалить
+      </my-button>
+    </div>
     <div>
       <h1>{{post.title}}</h1>
       <div> {{post.text}} </div>
@@ -20,12 +20,16 @@
     </div>
   </div>
 </template>
-<!-- @click="$emit('remove', post)" -->
+
 <script>
 import getApi from "@/axios-api";
+import EditPostForm from "../EditPostForm.vue";
 
 export default {
   name: 'post-detail',
+  components: {
+    EditPostForm
+  },
   data() {
     return {
       popupVisible: false,
@@ -45,12 +49,13 @@ export default {
         .finally((this.isPostLoading = false));
     },
 
-    editPost(post) {
+    editPost(newpost) {
+      console.log(newpost)
       getApi
         .put(`?id=${this.$route.params.id}`, {
-          title: post.title,
-          text: post.text,
           author: 1,
+          title: newpost.title,
+          text: newpost.text,
           created_date: "",
           published_date: "",
         })
@@ -60,10 +65,10 @@ export default {
         })
         .catch((error) => console.log(error));
       this.popupVisible = false;
+      this.getPostById();
     },
 
     removePost() {
-      // this.posts = this.posts.filter((p) => p.id !== post.id);
       getApi
         .delete(`?id=${this.$route.params.id}`)
         .then(() => {
@@ -83,4 +88,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.app__btns {
+  margin: 15px 0;
+  display: flex;
+  justify-content: space-between;
+}
+</style>
