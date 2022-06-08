@@ -2,6 +2,7 @@
   <div>
     <h1>Основная страница</h1>
     <div class="app__btns">
+      <my-button @click="$router.push('/store')"> Посты со стора </my-button>
       <my-button @click="showPopup"> Добавить пост </my-button>
       <my-select v-model="selectedSort" :options="sortOptions" />
     </div>
@@ -84,6 +85,7 @@ export default {
 .app__btns {
   margin: 15px 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  padding: 10px;
 }
 </style>
