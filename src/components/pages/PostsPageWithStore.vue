@@ -1,27 +1,27 @@
 <template>
   <div>
-    <h1>Страница со стором</h1>
+    <h1>Страница работы со стором</h1>
     <div class="app__btns">
       <my-button @click="$router.back"> Обратно </my-button>
       <my-button @click="showPopup"> Добавить пост </my-button>
-      <!-- <my-select v-model="selectedSort" :options="sortOptions" /> -->
+      <!-- <my-select model-value="selectedSort" @update="" :options="sortOptions" /> -->
     </div>
-    <!-- <my-popup v-model:show="popupVisible">
+    <my-popup v-model:show="popupVisible">
       <post-form @add="addPost">Создание поста</post-form>
-    </my-popup> -->
+    </my-popup>
     <post-list :posts="posts" v-if="!isPostLoading">
     </post-list>/>
   </div>
 </template>
 
 <script>
-// import PostForm from "@/components/PostForm";
+import PostForm from "@/components/PostForm";
 import PostList from "@/components/PostList";
 import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
   components: {
-    // PostForm,
+    PostForm,
     PostList
 },
   data() {
