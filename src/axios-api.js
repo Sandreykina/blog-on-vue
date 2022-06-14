@@ -6,7 +6,7 @@ const getApi = axios.create({
     headers: {
         'X-CSRFToken': 'csrftoken',
     },
-    baseURL: 'http://elenasandr.pythonanywhere.com',
+    baseURL: 'http://127.0.0.1:8000',
 })
 
 export default getApi
