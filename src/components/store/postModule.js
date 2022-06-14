@@ -11,9 +11,6 @@ export const postModule = {
         selectedSort: '',
     }),
     getters: {
-        posts: state => {
-            return state.posts
-        },
         sortedPosts(state) {
             return [...state.posts].sort((post1, post2) => {
                 return post1[state.selectedSort]?.localCompare(post2[state.selectedSort])
@@ -42,7 +39,7 @@ export const postModule = {
               })
               .catch((error) => console.log(error))
               .finally(commit('setLoading', false));
-          },
+        },
         //добавление поста
         addPost({ state, commit }) {
             getApi

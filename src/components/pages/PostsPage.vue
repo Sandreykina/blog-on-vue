@@ -4,13 +4,12 @@
     <div class="app__btns">
       <my-button @click="$router.push('/store')"> Посты со стора </my-button>
       <my-button @click="showPopup"> Добавить пост </my-button>
-      <my-select v-model="selectedSort" :options="sortOptions" />
+      <my-select :value="selectedSort" :options="sortOptions" />
     </div>
     <my-popup v-model:show="popupVisible">
       <post-form @add="addPost">Создание поста</post-form>
     </my-popup>
-    <post-list :posts="posts" v-if="!isPostLoading">
-    </post-list>/>
+    <post-list :posts="posts" v-if="!isPostLoading"></post-list>/>
   </div>
 </template>
 
@@ -23,7 +22,7 @@ export default {
   components: {
     PostForm,
     PostList
-},
+  },
   data() {
     return {
       popupVisible: false,
@@ -48,7 +47,6 @@ export default {
         .finally((this.isPostLoading = false));
       console.log(this.selectedSort);
     },
-
     addPost(post) {
       getApi
         .post("", {
@@ -65,14 +63,13 @@ export default {
         .catch((error) => console.log(error));
       this.popupVisible = false;
     },
-
+    sortedPosts() {
+        return [...this.posts].sort((post1, post2) => {
+          return post1[this.selectedSort]?.localCompare(post2[this.selectedSort])
+        })
+      },
     showPopup() {
       this.popupVisible = true;
-      // sortedPosts() {
-      //   return [...this.posts].sort((post1, post2) => {
-      //     return post1[this.selectedSort]?.localCompare(post2[this.selectedSort])
-      //   })
-      // }
     },
   },
     mounted() {

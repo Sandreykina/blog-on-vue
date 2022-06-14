@@ -4,13 +4,12 @@
     <div class="app__btns">
       <my-button @click="$router.back"> Обратно </my-button>
       <my-button @click="showPopup"> Добавить пост </my-button>
-      <!-- <my-select model-value="selectedSort" @update="" :options="sortOptions" /> -->
+      <my-select model-value="selectedSort" @update:model-value="selectedSort" :options="sortOptions" />
     </div>
     <my-popup v-model:show="popupVisible">
       <post-form @add="addPost">Создание поста</post-form>
     </my-popup>
-    <post-list :posts="posts" v-if="!isPostLoading">
-    </post-list>/>
+    <post-list :posts="posts" v-if="!isPostsLoading"></post-list>/>
   </div>
 </template>
 
@@ -23,7 +22,7 @@ export default {
   components: {
     PostForm,
     PostList
-},
+  },
   data() {
     return {
       popupVisible: false,
@@ -41,13 +40,12 @@ export default {
       this.posts.push(post);
       this.popupVisible = false;
     },
-
-  showPopup() {
+    showPopup() {
       this.popupVisible = true;
     },
   },
   mounted() {
-      this.fetchPosts();
+    this.fetchPosts();
   },
   computed: {
     ...mapState({
